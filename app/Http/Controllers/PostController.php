@@ -26,6 +26,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post();
+        $post->user_id = $request->user_id;
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
@@ -69,9 +70,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $isDeleted = Post::destroy();
+        $isDeleted = Post::destroy($id);
         if($isDeleted === 1){
-            return response()->json(['message'=>'Deleted post'], 101);
+            return response()->json(['message'=>'Deleted post']);
         }else{
             return response()->json(['message'=>'Id not found'], 404);
         }

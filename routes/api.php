@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController; 
 use App\Http\Controllers\PostController;
 
 /*
@@ -23,25 +23,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Public Route User
 // Public user register or register account
-Route::post('users',[UserController::class, 'register']);
+Route::post('register',[UserController::class, 'register']);
 
-//Public user login
-Route::post('users',[UserController::class, 'login']);
+//user login
+Route::post('login',[UserController::class, 'login']);
+
+Route::get('users',[UserController::class, 'index']);
+Route::get('users/{id}',[UserController::class, 'show']);
 
 // Post
 // Public Route
-Route::get('posts',[PostController::class, 'index']);
-Route::get('posts/{id}',[PostController::class, 'show']);
+Route::get('/posts',[PostController::class, 'index']);
+Route::get('/posts/{id}',[PostController::class, 'show']);
 
 //Private Route Of post and user
-Route::group(['middleware'=>['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum']], function(){
     // Post
-    Route::post('posts',[PostController::class, 'store']);
-    Route::put('posts/{id}',[PostController::class, 'update']);
-    Route::delete('posts/{id}',[PostController::class, 'destroy']);
+    Route::post('/posts',[PostController::class, 'store']);
+    Route::put('/posts/{id}',[PostController::class, 'update']);
+    Route::delete('/posts/{id}',[PostController::class, 'destroy']);
 
     // User logout
-    Route::post('users',[UserController::class, 'logout']);
+    Route::post('logout',[UserController::class, 'logout']);
 
 });
 

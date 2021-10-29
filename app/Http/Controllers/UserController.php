@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;// import Hash method
 
 class UserController extends Controller
 {
-    public function regiester(Request $request){
+    public function register(Request $request){
+
         $request->validate([
-            'password'=> 'required | confirmed', // need to confirmed password
+            'password'=> 'required|confirmed', // need to confirmed password
         ]);
         $user = new User();
         $user->name = $request->name;
@@ -50,7 +53,7 @@ class UserController extends Controller
     // signout user public functio
     public function logout(Request $request){
         auth()->user()->tokens()->delete();
-        return response()->json(['message' => 'Logout']);
+        return response()->json(['message' => 'Logging out']);
     }
 
     // show all users public function
@@ -63,3 +66,6 @@ class UserController extends Controller
         return User::findOrFail($id);
     }
 }
+
+// 2|62IYxdoXtn9uzSf2M3EeoIeKrTBk98CICbUIBsgg, pwd = 123
+// 5|ExHR5aXwzHeSd3SvyWk0ZxFiwNS5zarsIiGgF2dw, pwd = 1236
